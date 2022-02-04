@@ -11,17 +11,21 @@ function App() {
   function alcometer(e) {
     e.preventDefault();
 
-    let litres = bottles * 0.33
-    let grams = litres * 8 * 4.5
-    let burned = weight / 10
-    let result = grams - (burned * time)
+    let litres = bottles * 0.33;
+    let grams = litres * 8 * 4.5;
+    let burned = weight / 10;
+    let result1 = grams - burned * time;
+    let alcoholLevel = 0;
 
-    if (gender === 'male') {
-      burned = grams / (weight * 0.7);
+    if (gender === "male") {
+      alcoholLevel = result1 / (weight * 0.7);
     } else {
-      burned = grams / (weight * 0.6);
+      alcoholLevel = result1 / (weight * 0.6);
     }
-    setResult(result);
+    if(alcoholLevel < 0){
+      result = 0;
+    }
+    setResult(alcoholLevel);
   }
 
   return (
@@ -78,34 +82,11 @@ function App() {
       </div>
       <button type="button" onClick={alcometer}>
         Calculate
-      </button><br></br>
+      </button>
+      <br></br>
       <h3>Blood level:</h3>
-      <output>{result.toFixed(0)}</output>
+      <output>{result.toFixed(2)}</output>
     </form>
   );
 }
 export default App;
-
-
-
-
-/* function App() {
-  const [weight, setWeight] = useState(0);
-  const [bottles, setBottles] = useState(0);
-  const [litres, setLitres] = useState(0);
-  const [grams, setGrams] = useState(0);
-  const [burning, setBurning] = useState(0);
-  const [time, setTime] = useState(0);
-  const [gender, setGender] = useState("male");
-  const [result, setResult] = useState(0);
-
-  const calculate = () => {
-    let bloodLevel = 0;
-    if (gender === "male") {
-      bloodLevel = grams / (weight * 0.7);
-    } else {
-      bloodLevel = grams / (weight * 0.6);
-    }
-    setResult(bloodLevel);
-  };
-} */
